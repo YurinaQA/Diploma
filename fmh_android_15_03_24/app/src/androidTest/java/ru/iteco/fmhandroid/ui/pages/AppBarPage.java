@@ -9,32 +9,55 @@ import static org.hamcrest.Matchers.allOf;
 import androidx.test.espresso.ViewInteraction;
 
 import ru.iteco.fmhandroid.R;
-import ru.iteco.fmhandroid.ui.data.DataGenerator;
 
-public class AppBarPage extends DataGenerator {
-    //Иконка "бургер" навигационного меню
-    public static ViewInteraction navigationButton = onView(withId(R.id.main_menu_image_button));
+public class AppBarPage {
 
-    //"News" в навигационном меню
-    public static ViewInteraction navigationNews = onView(allOf(withId(android.R.id.title),
-            withText("News")));
 
-    //"About" в навигационном меню
-    public static ViewInteraction navigationAbout = onView(allOf(withId(android.R.id.title),
-            withText("About")));
+    private final int NAVIGATION_BUTTON_ID = R.id.main_menu_image_button;
+    private final int OUR_MISSION_BUTTON_ID = R.id.our_mission_image_button;
+    private final int EXIT_BUTTON_ID = R.id.authorization_image_button;
 
-    //"Main" в навигационном меню
-    public static ViewInteraction navigationMain = onView(allOf(withId(android.R.id.title),
-            withText("Main")));
+    private final String OUR_MISSION_DESCRIPTION = "Our Mission";
 
-    //Кнопка "бабочка" для перехода на страницу "Love is all"
-    public static ViewInteraction loveIsAllBtn = onView(
-            allOf(withId(R.id.our_mission_image_button), withContentDescription("Our Mission")));
+    private final int NAV_MENU_TITLE_ID = android.R.id.title;
+    private final String NEWS_TEXT = "News";
+    private final String ABOUT_TEXT = "About";
+    private final String MAIN_TEXT = "Main";
+    private final String LOGOUT_TEXT = "Log out";
 
-    //Кнопка выхода, иконка "Человечек"
-    public static ViewInteraction exitBtn = onView(withId(R.id.authorization_image_button));
 
-    //Текст "Log out"
-    public static ViewInteraction logOut = onView(allOf(withId(android.R.id.title), withText("Log out")));
+    /** Кнопка открытия навигационного меню ("бургер") */
+    public ViewInteraction getNavigationButton() {
+        return onView(withId(NAVIGATION_BUTTON_ID));
+    }
 
+    /** Пункт меню "News" */
+    public ViewInteraction getNavigationNews() {
+        return onView(allOf(withId(NAV_MENU_TITLE_ID), withText(NEWS_TEXT)));
+    }
+
+    /** Пункт меню "About" */
+    public ViewInteraction getNavigationAbout() {
+        return onView(allOf(withId(NAV_MENU_TITLE_ID), withText(ABOUT_TEXT)));
+    }
+
+    /** Пункт меню "Main" */
+    public ViewInteraction getNavigationMain() {
+        return onView(allOf(withId(NAV_MENU_TITLE_ID), withText(MAIN_TEXT)));
+    }
+
+    /** Кнопка "Our Mission" (иконка бабочки) */
+    public ViewInteraction getLoveIsAllBtn() {
+        return onView(allOf(withId(OUR_MISSION_BUTTON_ID), withContentDescription(OUR_MISSION_DESCRIPTION)));
+    }
+
+    /** Кнопка выхода (иконка человечка) */
+    public ViewInteraction getExitButton() {
+        return onView(withId(EXIT_BUTTON_ID));
+    }
+
+    /** Пункт меню "Log out" */
+    public ViewInteraction getLogOutText() {
+        return onView(allOf(withId(NAV_MENU_TITLE_ID), withText(LOGOUT_TEXT)));
+    }
 }

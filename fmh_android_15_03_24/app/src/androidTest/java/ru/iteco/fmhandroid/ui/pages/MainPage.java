@@ -11,19 +11,30 @@ import ru.iteco.fmhandroid.R;
 
 public class MainPage {
 
-    //Сворачивание/разворачивание ленты новостей
-    public static ViewInteraction openNewsBtn = onView(withId(R.id.expand_material_button));
-    //public static ViewInteraction openNewsBtn = onView(withId(R.id.container_list_news_include_on_fragment_main));
 
-    //Проверка отображения "All news"
-    public static ViewInteraction allNewsText = onView(
-            allOf(withId(R.id.all_news_text_view), withText("ALL NEWS")));
+    private final int EXPAND_NEWS_BUTTON_ID = R.id.expand_material_button;
+    private final int ALL_NEWS_TEXT_VIEW_ID = R.id.all_news_text_view;
+    private final String ALL_NEWS_TEXT = "ALL NEWS";
+    private final int NEWS_FEED_CONTAINER_ID = R.id.container_list_news_include_on_fragment_main;
 
-    //Переход на страницу новостей через "All news"
-    public static ViewInteraction allNewsBtn = onView(
-            allOf(withId(R.id.all_news_text_view), withText("ALL NEWS")));
 
-    ////Текст заголовка новостной ленты на главной странице
-    public static ViewInteraction newsFeedTitle = onView(withId(R.id.container_list_news_include_on_fragment_main));
+    /** Кнопка для сворачивания/разворачивания ленты новостей */
+    public ViewInteraction getOpenNewsButton() {
+        return onView(withId(EXPAND_NEWS_BUTTON_ID));
+    }
 
+    /** Текст "ALL NEWS" для проверки отображения на главной странице */
+    public ViewInteraction getAllNewsText() {
+        return onView(allOf(withId(ALL_NEWS_TEXT_VIEW_ID), withText(ALL_NEWS_TEXT)));
+    }
+
+    /** Кнопка "ALL NEWS" для перехода на страницу новостей */
+    public ViewInteraction getAllNewsButton() {
+        return onView(allOf(withId(ALL_NEWS_TEXT_VIEW_ID), withText(ALL_NEWS_TEXT)));
+    }
+
+    /** Заголовок новостной ленты на главной странице */
+    public ViewInteraction getNewsFeedTitle() {
+        return onView(withId(NEWS_FEED_CONTAINER_ID));
+    }
 }

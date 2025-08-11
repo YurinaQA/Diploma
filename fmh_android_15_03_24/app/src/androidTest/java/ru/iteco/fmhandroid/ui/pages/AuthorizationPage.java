@@ -15,38 +15,52 @@ import android.view.View;
 
 import androidx.test.espresso.ViewInteraction;
 
-import org.hamcrest.Matchers;
-
 import ru.iteco.fmhandroid.R;
-import ru.iteco.fmhandroid.ui.data.DataGenerator;
+
+public class AuthorizationPage {
 
 
-public class AuthorizationPage extends DataGenerator {
-    //Поле для ввода логина
-    public static ViewInteraction loginField = onView(withId(R.id.login_text_input_layout));
-    public static ViewInteraction loginFieldAsTextField = onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.login_text_input_layout))));
+    private final int LOGIN_FIELD_LAYOUT_ID = R.id.login_text_input_layout;
+    private final int PASSWORD_FIELD_LAYOUT_ID = R.id.password_text_input_layout;
+    private final int LOGIN_BUTTON_ID = R.id.enter_button;
 
-    //Поле для ввода пароля
-    public static ViewInteraction passwordField = onView(withId(R.id.password_text_input_layout));
-    public static ViewInteraction passwordFieldAsTextField = onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.password_text_input_layout))));
+    private final String AUTHORIZATION_TITLE_TEXT = "Authorization";
 
-    //Кнопка авторизации
-    public static ViewInteraction loginButton = onView(withId(R.id.enter_button));
 
-    //Заголовок авторизации
-    public static ViewInteraction AuthorizationText = onView(withText("Authorization"));
-   // public static ViewInteraction AuthorizationText = onView(allOf(withText("Authorization"), withId(R.id.nav_host_fragment)));
+    /** Layout поля логина */
+    public ViewInteraction getLoginFieldLayout() {
+        return onView(withId(LOGIN_FIELD_LAYOUT_ID));
+    }
 
-    //Появление ошибок
-    public static void errorMessageText(String text, View decorView) {
+    /** Поле ввода логина */
+    public ViewInteraction getLoginTextField() {
+        return onView(allOf(supportsInputMethods(), isDescendantOfA(withId(LOGIN_FIELD_LAYOUT_ID))));
+    }
+
+    /** Layout поля пароля */
+    public ViewInteraction getPasswordFieldLayout() {
+        return onView(withId(PASSWORD_FIELD_LAYOUT_ID));
+    }
+
+    /** Поле ввода пароля */
+    public ViewInteraction getPasswordTextField() {
+        return onView(allOf(supportsInputMethods(), isDescendantOfA(withId(PASSWORD_FIELD_LAYOUT_ID))));
+    }
+
+    /** Кнопка входа */
+    public ViewInteraction getLoginButton() {
+        return onView(withId(LOGIN_BUTTON_ID));
+    }
+
+    /** Заголовок страницы "Authorization" */
+    public ViewInteraction getAuthorizationText() {
+        return onView(withText(AUTHORIZATION_TITLE_TEXT));
+    }
+
+    /** Проверка отображения сообщения об ошибке */
+    public static void checkErrorMessageDisplayed(String text, View decorView) {
         onView(withText(text))
                 .inRoot(withDecorView(not(decorView)))
                 .check(matches(isDisplayed()));
     }
-
-
-
-
 }
-
-
