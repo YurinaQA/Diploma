@@ -12,19 +12,18 @@ import ru.iteco.fmhandroid.R;
 
 public class AppBarPage {
 
+    // ID элементов для шагов
+    public final int NAVIGATION_BUTTON_ID = R.id.main_menu_image_button;
+    public final int OUR_MISSION_BUTTON_ID = R.id.our_mission_image_button;
+    public final int EXIT_BUTTON_ID = R.id.authorization_image_button;
+    public final int NAV_MENU_TITLE_ID = android.R.id.title;
 
-    private final int NAVIGATION_BUTTON_ID = R.id.main_menu_image_button;
-    private final int OUR_MISSION_BUTTON_ID = R.id.our_mission_image_button;
-    private final int EXIT_BUTTON_ID = R.id.authorization_image_button;
-
-    private final String OUR_MISSION_DESCRIPTION = "Our Mission";
-
-    private final int NAV_MENU_TITLE_ID = android.R.id.title;
-    private final String NEWS_TEXT = "News";
-    private final String ABOUT_TEXT = "About";
-    private final String MAIN_TEXT = "Main";
-    private final String LOGOUT_TEXT = "Log out";
-
+    // Тексты элементов для меню
+    public final String NEWS_TEXT = "News";
+    public final String ABOUT_TEXT = "About";
+    public final String MAIN_TEXT = "Main";
+    public final String LOGOUT_TEXT = "Log out";
+    public final String OUR_MISSION_DESCRIPTION = "Our Mission";
 
     /** Кнопка открытия навигационного меню ("бургер") */
     public ViewInteraction getNavigationButton() {
@@ -59,5 +58,10 @@ public class AppBarPage {
     /** Пункт меню "Log out" */
     public ViewInteraction getLogOutText() {
         return onView(allOf(withId(NAV_MENU_TITLE_ID), withText(LOGOUT_TEXT)));
+    }
+
+    /** Универсальный клик для всех кнопок */
+    public ViewInteraction click() {
+        return null;
     }
 }

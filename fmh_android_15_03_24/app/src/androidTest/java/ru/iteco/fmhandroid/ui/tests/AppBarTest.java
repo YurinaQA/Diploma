@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
+import io.qameta.allure.kotlin.Story;
 import ru.iteco.fmhandroid.ui.AppActivity;
 import ru.iteco.fmhandroid.ui.data.DataGenerator;
 import ru.iteco.fmhandroid.ui.steps.AppBarStep;
@@ -42,12 +43,14 @@ public class AppBarTest extends DataGenerator {
     }
 
     @Test
+    @Story("Навигация: пункт 'О приложении' кликабелен")
     public void testNavigationAboutIsClickable() {
         appBarStep.clickNavigationBtn();
         appBarStep.clickNavigationAbout();
     }
 
     @Test
+    @Story("Навигация: переход на страницу Новости")
     public void testNavigationNews() {
         appBarStep.clickNavigationBtn();
         appBarStep.clickNavigationNews();
@@ -55,19 +58,23 @@ public class AppBarTest extends DataGenerator {
     }
 
     @Test
+    @Story("Навигация: переход на главную страницу")
     public void testNavigationMain() {
         appBarStep.clickNavigationBtn();
         appBarStep.clickNavigationMain();
-        // Проверка, что главная страница открыта (нужно добавить метод проверки в AppBarStep)
+        // Проверка, что главная страница открыта
+        appBarStep.checkMainPage(); // метод нужно добавить в AppBarStep
     }
 
     @Test
+    @Story("Кнопка 'Love is All' открывает соответствующую страницу")
     public void testLoveIsAllButton() {
         appBarStep.clickLoveIsAllBtn();
         appBarStep.checkLoveIsAllTitle();
     }
 
     @Test
+    @Story("Выход из приложения возвращает на страницу авторизации")
     public void testExitApp() {
         appBarStep.exit();
         authorizationStep.checkAuthorizationPage();

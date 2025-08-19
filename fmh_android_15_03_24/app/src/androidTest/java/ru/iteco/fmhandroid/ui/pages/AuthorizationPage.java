@@ -19,13 +19,13 @@ import ru.iteco.fmhandroid.R;
 
 public class AuthorizationPage {
 
+    // ID элементов
+    public final int LOGIN_FIELD_LAYOUT_ID = R.id.login_text_input_layout;
+    public final int PASSWORD_FIELD_LAYOUT_ID = R.id.password_text_input_layout;
+    public final int LOGIN_BUTTON_ID = R.id.enter_button;
 
-    private final int LOGIN_FIELD_LAYOUT_ID = R.id.login_text_input_layout;
-    private final int PASSWORD_FIELD_LAYOUT_ID = R.id.password_text_input_layout;
-    private final int LOGIN_BUTTON_ID = R.id.enter_button;
-
-    private final String AUTHORIZATION_TITLE_TEXT = "Authorization";
-
+    // Текст заголовка страницы
+    public final String AUTHORIZATION_TITLE_TEXT = "Authorization";
 
     /** Layout поля логина */
     public ViewInteraction getLoginFieldLayout() {
@@ -34,7 +34,10 @@ public class AuthorizationPage {
 
     /** Поле ввода логина */
     public ViewInteraction getLoginTextField() {
-        return onView(allOf(supportsInputMethods(), isDescendantOfA(withId(LOGIN_FIELD_LAYOUT_ID))));
+        return onView(allOf(
+                supportsInputMethods(),
+                isDescendantOfA(withId(LOGIN_FIELD_LAYOUT_ID))
+        ));
     }
 
     /** Layout поля пароля */
@@ -44,7 +47,10 @@ public class AuthorizationPage {
 
     /** Поле ввода пароля */
     public ViewInteraction getPasswordTextField() {
-        return onView(allOf(supportsInputMethods(), isDescendantOfA(withId(PASSWORD_FIELD_LAYOUT_ID))));
+        return onView(allOf(
+                supportsInputMethods(),
+                isDescendantOfA(withId(PASSWORD_FIELD_LAYOUT_ID))
+        ));
     }
 
     /** Кнопка входа */

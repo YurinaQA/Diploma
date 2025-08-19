@@ -11,12 +11,11 @@ import ru.iteco.fmhandroid.R;
 
 public class MainPage {
 
-
-    private final int EXPAND_NEWS_BUTTON_ID = R.id.expand_material_button;
-    private final int ALL_NEWS_TEXT_VIEW_ID = R.id.all_news_text_view;
-    private final String ALL_NEWS_TEXT = "ALL NEWS";
-    private final int NEWS_FEED_CONTAINER_ID = R.id.container_list_news_include_on_fragment_main;
-
+    // Публичные ID и тексты для Step
+    public final int EXPAND_NEWS_BUTTON_ID = R.id.expand_material_button;
+    public final int ALL_NEWS_TEXT_VIEW_ID = R.id.all_news_text_view;
+    public final String ALL_NEWS_TEXT = "ALL NEWS";
+    public final int NEWS_FEED_CONTAINER_ID = R.id.container_list_news_include_on_fragment_main;
 
     /** Кнопка для сворачивания/разворачивания ленты новостей */
     public ViewInteraction getOpenNewsButton() {

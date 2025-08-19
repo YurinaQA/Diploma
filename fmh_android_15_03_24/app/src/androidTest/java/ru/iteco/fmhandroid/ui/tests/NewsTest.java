@@ -49,6 +49,8 @@ public class NewsTest extends DataGenerator {
         activityScenarioRule.getScenario().onActivity(activity -> decorView = activity.getWindow().getDecorView());
     }
 
+    // ------------------------- СУЩЕСТВУЮЩИЕ ТЕСТЫ -------------------------
+
     @Test
     @Story("Обновление страницы 'News' нажатием кнопки 'Refresh'")
     public void shouldRefreshByBtn() {
@@ -108,5 +110,40 @@ public class NewsTest extends DataGenerator {
         newsStep.openFilterNewsSection();
         newsStep.clickCancelFilterButton();
         newsStep.checkNewsPageTitleDisplayed();
+    }
+    @Test
+    @Story("Создание новости через панель управления")
+    public void shouldCreateNews() {
+        String title = "Автотест новость";
+        String description = "Описание создано автотестом";
+
+        newsStep.openControlPanel();
+        newsStep.clickAddNewsButton();
+        newsStep.checkCreatingNewsTitleDisplayed();
+
+        newsStep.enterNewsTitle(title);
+        newsStep.selectNewsCategory("Объявление");
+        newsStep.enterNewsDate("20.08.2025");
+        newsStep.enterNewsTime("12:00");
+        newsStep.enterNewsDescription(description);
+        newsStep.clickSaveNewsButton();
+
+        newsStep.checkNewsCreated(title);
+    }
+
+    @Test
+    @Story("Редактирование существующей новости")
+    public void shouldEditNews() {
+        String updatedTitle = "Изменённая новость";
+
+        newsStep.openControlPanel();
+        newsStep.clickEditNewsAtPosition(0); // первую новость
+        newsStep.checkEditingNewsTitleDisplayed();
+
+        newsStep.clearNewsTitle();
+        newsStep.enterNewsTitle(updatedTitle);
+        newsStep.clickSaveNewsButton();
+
+        newsStep.checkNewsUpdated(updatedTitle);
     }
 }
