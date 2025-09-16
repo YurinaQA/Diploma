@@ -6,6 +6,7 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import io.qameta.allure.kotlin.Step;
 import ru.iteco.fmhandroid.ui.pages.NewsPage;
@@ -14,21 +15,42 @@ public class NewsStep {
 
     private final NewsPage newsPage = new NewsPage();
 
+    // ===== Проверки =====
     @Step("Проверить, что заголовок страницы новостей отображается")
     public void checkNewsPageTitleDisplayed() {
         newsPage.newsPageTitle().check(matches(isDisplayed()));
     }
 
-    @Step("Проверить, что сообщения о пустой ленте новостей отображается")
+    @Step("Проверить, что сообщение о пустой ленте новостей отображается")
     public void checkNoNewsMessageDisplayed() {
         newsPage.notNewsYet().check(matches(isDisplayed()));
     }
 
-    @Step("Проверить отображение новости с заголовком: {title}")
+    @Step("Проверить, что новость с заголовком '{title}' отображается")
     public void checkNewsDisplayed(String title) {
         newsPage.newsItemWithTitle(title).check(matches(isDisplayed()));
     }
 
+    @Step("Проверить, что новость с заголовком '{title}' успешно создана")
+    public void checkNewsCreated(String title) {
+        newsPage.newsItemWithTitle(title).check(matches(isDisplayed()));
+    }
+
+    @Step("Проверить, что новость обновлена. Новый заголовок: '{updatedTitle}'")
+    public void checkNewsUpdated(String updatedTitle) {
+        newsPage.newsItemWithTitle(updatedTitle).check(matches(isDisplayed()));
+    }
+
+    @Step("Проверить, что новость с заголовком '{title}' удалена (не отображается)")
+    public void checkNewsDeleted(String title) {
+        newsPage.newsItemWithTitle(title).check(matches(withText(title))).check((view, noViewFoundException) -> {
+            if (noViewFoundException == null) {
+                throw new AssertionError("Новость с заголовком '" + title + "' все еще отображается!");
+            }
+        });
+    }
+
+    // ===== Действия =====
     @Step("Нажать на кнопку обновления новостей")
     public void clickRefreshButton() {
         newsPage.refreshBtn().perform(click());
@@ -110,5 +132,10 @@ public class NewsStep {
     @Step("Редактировать новость на позиции: {position}")
     public void clickEditNewsAtPosition(int position) {
         newsPage.editNewsBtnAt(position).perform(click());
+    }
+
+    @Step("Удалить новость на позиции: {position}")
+    public void clickDeleteNewsAtPosition(int position) {
+        newsPage.deleteNewsBtnAt(position).perform(click());
     }
 }
