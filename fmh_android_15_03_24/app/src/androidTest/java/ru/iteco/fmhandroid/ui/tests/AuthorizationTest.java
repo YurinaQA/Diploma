@@ -30,7 +30,7 @@ public class AuthorizationTest extends DataGenerator {
     public void ensureOnAuthorizationPage() {
         try {
             // Проверяем открыта ли главная страница (значит, пользователь авторизован)
-            appBarStep.checkNewsPageTitle();
+            appBarStep.checkNewsPageTitle("ALL NEWS");
             // Если авторизован — разлогиниваем
             appBarStep.exit();
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class AuthorizationTest extends DataGenerator {
         authorizationStep.loginFieldInput(validLogin);
         authorizationStep.passwordFieldInput(validPassword);
         authorizationStep.clickLoginBtn();
-        appBarStep.checkNewsPageTitle();
+        appBarStep.checkNewsPageTitle("ALL NEWS");
     }
 
     @Test

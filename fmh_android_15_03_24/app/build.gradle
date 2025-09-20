@@ -5,13 +5,10 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
-    id 'com.google.gms.google-services'
-    id 'com.google.firebase.crashlytics'
 }
 
 android {
     compileSdkVersion 32
-    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "ru.iteco.fmhandroid"
@@ -19,6 +16,8 @@ android {
         targetSdkVersion 32
         versionCode 14
         versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -34,34 +33,12 @@ android {
     buildFeatures {
         viewBinding true
     }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", '"https://students.netoservices.ru/qamid-diplom-backend/"'
-        }
-        debug {
-            buildConfigField "String", "BASE_URL", '"https://students.netoservices.ru/qamid-diplom-backend/"'
-        }
-    }
 }
 
 dependencies {
-    // Firebase
-    implementation platform('com.google.firebase:firebase-bom:29.0.3')
-    implementation 'com.google.firebase:firebase-analytics-ktx'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:protolite-well-known-types:18.0.0'
-
-    // Kotlin & Coroutines
+    // Kotlin & AndroidX
     implementation 'androidx.core:core-ktx:1.7.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2"
-
-    // UI
     implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation "com.google.android.material:material:1.5.0"
     implementation "androidx.constraintlayout:constraintlayout:2.1.3"
     implementation "androidx.recyclerview:recyclerview:1.2.1"
@@ -69,38 +46,24 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.41"
+    kapt "com.google.dagger:hilt-compiler:2.41"
+
     // Room
     implementation "androidx.room:room-runtime:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
     implementation "androidx.room:room-ktx:2.4.2"
 
-    // Retrofit & OkHttp
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.2"
-    implementation "com.google.code.gson:gson:2.9.0"
-
-    // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
-    kapt "androidx.lifecycle:lifecycle-compiler:2.4.1"
-
-    // Hilt
-    implementation "com.google.dagger:hilt-android:2.41"
-    kapt "com.google.dagger:hilt-compiler:2.41"
-
     // Desugaring
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
-    // Тесты
+    // Testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
-    androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
 
     // Allure
     def allure_version = "2.4.0"

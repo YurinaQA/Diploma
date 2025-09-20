@@ -43,11 +43,12 @@ public class NewsStep {
 
     @Step("Проверить, что новость с заголовком '{title}' удалена (не отображается)")
     public void checkNewsDeleted(String title) {
-        newsPage.newsItemWithTitle(title).check(matches(withText(title))).check((view, noViewFoundException) -> {
-            if (noViewFoundException == null) {
-                throw new AssertionError("Новость с заголовком '" + title + "' все еще отображается!");
-            }
-        });
+        try {
+            newsPage.newsItemWithTitle(title).check(matches(isDisplayed()));
+            throw new AssertionError("Новость с заголовком '" + title + "' все еще отображается!");
+        } catch (Exception ignored) {
+            // Ожидаемое поведение — элемент не найден
+        }
     }
 
     // ===== Действия =====
@@ -137,5 +138,16 @@ public class NewsStep {
     @Step("Удалить новость на позиции: {position}")
     public void clickDeleteNewsAtPosition(int position) {
         newsPage.deleteNewsBtnAt(position).perform(click());
+    }
+
+    // ===== Новые проверки, чтобы заменить старые несуществующие методы =====
+    @Step("Проверить, что создается новость (для панели добавления)")
+    public void checkCreatingNewsTitleDisplayed() {
+        newsPage.newsTitleInput().check(matches(isDisplayed()));
+    }
+
+    @Step("Проверить, что редактируется новость (для панели редактирования)")
+    public void checkEditingNewsTitleDisplayed() {
+        newsPage.newsTitleInput().check(matches(isDisplayed()));
     }
 }

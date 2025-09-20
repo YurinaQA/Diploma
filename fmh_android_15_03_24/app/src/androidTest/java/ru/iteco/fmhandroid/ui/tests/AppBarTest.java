@@ -1,9 +1,5 @@
 package ru.iteco.fmhandroid.ui.tests;
 
-import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.filters.LargeTest;
 
@@ -29,6 +25,8 @@ public class AppBarTest extends DataGenerator {
     @Rule
     public ActivityScenarioRule<AppActivity> activityScenarioRule =
             new ActivityScenarioRule<>(AppActivity.class);
+
+    private final String NEWS_PAGE_TITLE = "ALL NEWS";      // заголовок страницы Новости
 
     @Before
     public void login() {
@@ -62,8 +60,7 @@ public class AppBarTest extends DataGenerator {
     public void testNavigationMain() {
         appBarStep.clickNavigationBtn();
         appBarStep.clickNavigationMain();
-        // Проверка, что главная страница открыта
-        appBarStep.checkMainPage(); // метод нужно добавить в AppBarStep
+        appBarStep.checkMainPage();
     }
 
     @Test

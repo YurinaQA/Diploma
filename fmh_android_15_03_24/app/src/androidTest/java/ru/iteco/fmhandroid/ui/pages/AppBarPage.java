@@ -12,13 +12,14 @@ import ru.iteco.fmhandroid.R;
 
 public class AppBarPage {
 
-    // ID элементов для шагов
+    // ID элементов
     public final int NAVIGATION_BUTTON_ID = R.id.main_menu_image_button;
     public final int OUR_MISSION_BUTTON_ID = R.id.our_mission_image_button;
     public final int EXIT_BUTTON_ID = R.id.authorization_image_button;
     public final int NAV_MENU_TITLE_ID = android.R.id.title;
+    public final int MAIN_PAGE_TITLE_ID = R.id.trademark_image_view; // пример, уточни ID
 
-    // Тексты элементов для меню
+    // Тексты пунктов меню
     public final String NEWS_TEXT = "News";
     public final String ABOUT_TEXT = "About";
     public final String MAIN_TEXT = "Main";
@@ -60,8 +61,8 @@ public class AppBarPage {
         return onView(allOf(withId(NAV_MENU_TITLE_ID), withText(LOGOUT_TEXT)));
     }
 
-    /** Универсальный клик для всех кнопок */
-    public ViewInteraction click() {
-        return null;
+    /** Заголовок главной страницы */
+    public ViewInteraction getMainPageTitle() {
+        return onView(withId(MAIN_PAGE_TITLE_ID));
     }
 }

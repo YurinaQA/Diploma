@@ -21,8 +21,14 @@ public class NewsPage {
     private final int CONTROL_PANEL_BUTTON_ID = R.id.edit_news_material_button;
     private final int ADD_NEWS_BUTTON_ID = R.id.add_news_image_view;
 
+    /** Возвращает ViewInteraction заголовка страницы "News" */
     public ViewInteraction newsPageTitle() {
         return onView(allOf(withId(ALL_NEWS_TEXT_VIEW_ID), withText(ALL_NEWS_TEXT)));
+    }
+
+    /** Публичный метод для получения ID заголовка (для WaitId) */
+    public int getAllNewsTextViewId() {
+        return ALL_NEWS_TEXT_VIEW_ID;
     }
 
     public ViewInteraction refreshBtn() {
@@ -68,6 +74,14 @@ public class NewsPage {
         return onView(withId(NEWS_LIST_ID));
     }
 
+    // -------- Сообщение "нет новостей" --------
+    private final int NOT_NEWS_YET_ID = R.id.empty_news_list_text_view;
+    private final String NOT_NEWS_YET_TEXT = "There is nothing here yet...";
+
+    public ViewInteraction notNewsYet() {
+        return onView(allOf(withId(NOT_NEWS_YET_ID), withText(NOT_NEWS_YET_TEXT)));
+    }
+
     // -------- Форма создания/редактирования новости --------
     private final int NEWS_TITLE_INPUT_ID = R.id.news_item_title_text_input_edit_text;
     private final int NEWS_CATEGORY_INPUT_ID = R.id.news_item_category_text_auto_complete_text_view;
@@ -75,11 +89,11 @@ public class NewsPage {
     private final int NEWS_TIME_INPUT_ID = R.id.news_item_publish_time_text_input_edit_text;
     private final int NEWS_DESCRIPTION_INPUT_ID = R.id.news_item_description_text_input_edit_text;
 
-    private final int CREATING_NEWS_TITLE_ID = R.id.custom_app_bar_title_text_view; // пример, уточни id
-    private final String CREATING_NEWS_TITLE_TEXT = "Creating"; // пример, уточни текст
+    private final int CREATING_NEWS_TITLE_ID = R.id.custom_app_bar_title_text_view;
+    private final String CREATING_NEWS_TITLE_TEXT = "Creating";
 
-    private final int EDITING_NEWS_TITLE_ID = R.id.custom_app_bar_title_text_view; // пример, уточни id
-    private final String EDITING_NEWS_TITLE_TEXT = "Editing"; // пример, уточни текст
+    private final int EDITING_NEWS_TITLE_ID = R.id.custom_app_bar_title_text_view;
+    private final String EDITING_NEWS_TITLE_TEXT = "Editing";
 
     public ViewInteraction newsTitleInput() {
         return onView(withId(NEWS_TITLE_INPUT_ID));
@@ -87,6 +101,11 @@ public class NewsPage {
 
     public ViewInteraction newsCategoryInput() {
         return onView(withId(NEWS_CATEGORY_INPUT_ID));
+    }
+
+    /** Метод для открытия списка категорий */
+    public ViewInteraction openCategoryList() {
+        return newsCategoryInput();
     }
 
     public ViewInteraction newsDateInput() {
@@ -109,9 +128,6 @@ public class NewsPage {
         return onView(allOf(withId(EDITING_NEWS_TITLE_ID), withText(EDITING_NEWS_TITLE_TEXT)));
     }
 
-    /**
-     * Выбор категории из выпадающего списка
-     */
     public void selectCategoryFromList(String category) {
         onView(withText(category))
                 .inRoot(RootMatchers.isPlatformPopup())

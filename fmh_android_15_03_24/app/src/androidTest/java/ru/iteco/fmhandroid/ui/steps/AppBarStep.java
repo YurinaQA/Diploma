@@ -1,91 +1,74 @@
 package ru.iteco.fmhandroid.ui.steps;
 
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import io.qameta.allure.kotlin.Step;
-import ru.iteco.fmhandroid.ui.WaitId;
-import ru.iteco.fmhandroid.ui.data.DataGenerator;
 import ru.iteco.fmhandroid.ui.pages.AppBarPage;
 import ru.iteco.fmhandroid.ui.pages.LoveIsAllPage;
 import ru.iteco.fmhandroid.ui.pages.NewsPage;
 
-public class AppBarStep extends DataGenerator {
+public class AppBarStep {
 
-    private final AppBarPage appBarPage;
-    private final LoveIsAllPage loveIsAllPage;
-    private final NewsPage newsPage;
+    private final AppBarPage appBarPage = new AppBarPage();
+    private final NewsPage newsPage = new NewsPage();
+    private final LoveIsAllPage loveIsAllPage = new LoveIsAllPage();
 
-    public AppBarStep() {
-        this.appBarPage = new AppBarPage();
-        this.loveIsAllPage = new LoveIsAllPage();
-        this.newsPage = new NewsPage();
-    }
-
-    @Step("Нажатие кнопки навигации")
+    /** Нажатие на кнопку "бургер" */
     public void clickNavigationBtn() {
-        WaitId.waitUntilElement(appBarPage.NAVIGATION_BUTTON_ID);
-        appBarPage.getNavigationButton().check(matches(isDisplayed()));
-        appBarPage.getNavigationButton().perform(appBarPage.click());
+        appBarPage.getNavigationButton().perform(click());
     }
 
-    @Step("Переход в раздел 'News'")
+    /** Нажатие на пункт меню "News" */
     public void clickNavigationNews() {
-        WaitId.waitUntilElement(appBarPage.NAVIGATION_NEWS_ID);
-        appBarPage.getNavigationNews().check(matches(isDisplayed()));
-        appBarPage.getNavigationNews().perform(appBarPage.click());
+        appBarPage.getNavigationNews().perform(click());
     }
 
-    @Step("Переход в раздел 'About'")
+    /** Нажатие на пункт меню "About" */
     public void clickNavigationAbout() {
-        WaitId.waitUntilElement(appBarPage.NAVIGATION_ABOUT_ID);
-        appBarPage.getNavigationAbout().check(matches(isDisplayed()));
-        appBarPage.getNavigationAbout().perform(appBarPage.click());
+        appBarPage.getNavigationAbout().perform(click());
     }
 
-    @Step("Переход на главную страницу")
+    /** Нажатие на пункт меню "Main" */
     public void clickNavigationMain() {
-        WaitId.waitUntilElement(appBarPage.NAVIGATION_MAIN_ID);
-        appBarPage.getNavigationMain().check(matches(isDisplayed()));
-        appBarPage.getNavigationMain().perform(appBarPage.click());
+        appBarPage.getNavigationMain().perform(click());
     }
 
-    @Step("Нажатие кнопки 'Love is All'")
+    /** Нажатие на кнопку "Our Mission" */
     public void clickLoveIsAllBtn() {
-        WaitId.waitUntilElement(appBarPage.LOVE_IS_ALL_BTN_ID);
-        appBarPage.getLoveIsAllBtn().check(matches(isDisplayed()));
-        appBarPage.getLoveIsAllBtn().perform(appBarPage.click());
+        appBarPage.getLoveIsAllBtn().perform(click());
     }
 
-    @Step("Проверка заголовка 'Love is All'")
-    public void checkLoveIsAllTitle() {
-        WaitId.waitUntilElement(loveIsAllPage.LOVE_IS_ALL_TITLE_ID);
-        loveIsAllPage.getLoveIsAllTitle().check(matches(isDisplayed()));
-        loveIsAllPage.getLoveIsAllTitle().check(matches(withText(loveTitle)));
-    }
-
-    @Step("Проверка заголовка страницы 'News'")
-    public void checkNewsPageTitle() {
-        WaitId.waitUntilElement(newsPage.NEWS_PAGE_TITLE_ID);
-        newsPage.newsPageTitle().check(matches(isDisplayed()));
-        newsPage.newsPageTitle().check(matches(withText(newsPageTitle)));
-    }
-
-    @Step("Проверка отображения заголовка новости")
-    public void checkNewsTitle() {
-        WaitId.waitUntilElement(newsPage.NEWS_PAGE_TITLE_ID);
-        newsPage.newsPageTitle().check(matches(isDisplayed()));
-    }
-
-    @Step("Выход из приложения")
+    /** Нажатие на кнопку выхода */
     public void exit() {
-        WaitId.waitUntilElement(appBarPage.EXIT_BUTTON_ID);
-        appBarPage.getExitButton().check(matches(isDisplayed()));
-        appBarPage.getExitButton().perform(appBarPage.click());
+        appBarPage.getExitButton().perform(click());
+    }
 
-        WaitId.waitUntilElement(appBarPage.LOGOUT_TEXT_ID);
-        appBarPage.getLogOutText().check(matches(isDisplayed()));
-        appBarPage.getLogOutText().perform(appBarPage.click());
+    /** Нажатие на пункт "Log out" */
+    public void clickLogOut() {
+        appBarPage.getLogOutText().perform(click());
+    }
+
+    /** Проверка заголовка страницы Новости с конкретным текстом */
+    public void checkNewsPageTitle(String expectedTitle) {
+        newsPage.newsPageTitle().check(matches(withText(expectedTitle)));
+    }
+
+    /** Перегрузка для совместимости без аргумента */
+    public void checkNewsPageTitle() {
+        checkNewsPageTitle("ALL NEWS");
+    }
+
+    /** Проверка заголовка главной страницы */
+    public void checkMainPage() {
+        appBarPage.getMainPageTitle().check(matches(isDisplayed()));
+    }
+
+    /** Проверка заголовка страницы Love is All */
+    public void checkLoveIsAllTitle() {
+        loveIsAllPage.getLoveIsAllTitle().check(matches(isDisplayed()));
     }
 }

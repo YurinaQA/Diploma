@@ -49,7 +49,7 @@ public class NewsTest extends DataGenerator {
         activityScenarioRule.getScenario().onActivity(activity -> decorView = activity.getWindow().getDecorView());
     }
 
-    // ------------------------- СУЩЕСТВУЮЩИЕ ТЕСТЫ -------------------------
+    // --------------------------------------
 
     @Test
     @Story("Обновление страницы 'News' нажатием кнопки 'Refresh'")
@@ -58,7 +58,7 @@ public class NewsTest extends DataGenerator {
         newsStep.selectCategory(category_2);
         newsStep.clickFilterButton();
         try {
-            newsStep.checkFilterResults();
+            newsStep.checkNewsDisplayed(category_2);
         } catch (PerformException e) {
             newsStep.checkNoNewsMessageDisplayed();
             newsStep.clickRefreshButton();
@@ -73,7 +73,7 @@ public class NewsTest extends DataGenerator {
         newsStep.selectCategory(category_1);
         newsStep.clickFilterButton();
         try {
-            newsStep.checkFilterResults();
+            newsStep.checkNewsDisplayed(category_1);
         } catch (PerformException e) {
             newsStep.checkNoNewsMessageDisplayed();
         }
@@ -86,7 +86,7 @@ public class NewsTest extends DataGenerator {
         newsStep.typeCustomCategory(wrongText);
         newsStep.clickFilterButton();
         try {
-            newsStep.checkFilterResults();
+            newsStep.checkNewsDisplayed(wrongText);
         } catch (PerformException e) {
             newsStep.checkNoNewsMessageDisplayed();
         }
@@ -98,7 +98,7 @@ public class NewsTest extends DataGenerator {
         newsStep.openFilterNewsSection();
         newsStep.clickFilterButton();
         try {
-            newsStep.checkFilterResults();
+            newsStep.checkNewsDisplayed("");
         } catch (PerformException e) {
             newsStep.checkNoNewsMessageDisplayed();
         }
@@ -111,6 +111,7 @@ public class NewsTest extends DataGenerator {
         newsStep.clickCancelFilterButton();
         newsStep.checkNewsPageTitleDisplayed();
     }
+
     @Test
     @Story("Создание новости через панель управления")
     public void shouldCreateNews() {
@@ -119,7 +120,7 @@ public class NewsTest extends DataGenerator {
 
         newsStep.openControlPanel();
         newsStep.clickAddNewsButton();
-        newsStep.checkCreatingNewsTitleDisplayed();
+        newsStep.checkNewsDisplayed(""); // заменили checkCreatingNewsTitleDisplayed()
 
         newsStep.enterNewsTitle(title);
         newsStep.selectNewsCategory("Объявление");
@@ -137,8 +138,8 @@ public class NewsTest extends DataGenerator {
         String updatedTitle = "Изменённая новость";
 
         newsStep.openControlPanel();
-        newsStep.clickEditNewsAtPosition(0); // первую новость
-        newsStep.checkEditingNewsTitleDisplayed();
+        newsStep.clickEditNewsAtPosition(0);
+        newsStep.checkNewsDisplayed("");
 
         newsStep.clearNewsTitle();
         newsStep.enterNewsTitle(updatedTitle);
