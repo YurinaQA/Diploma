@@ -31,13 +31,13 @@ public class AppBarTest extends DataGenerator {
     @Before
     public void login() {
         try {
-            appBarStep.checkNewsPageTitle();
+            appBarStep.checkNewsPageTitle(NEWS_PAGE_TITLE);
         } catch (Exception e) {
             authorizationStep.loginFieldInput(validLogin);
             authorizationStep.passwordFieldInput(validPassword);
             authorizationStep.clickLoginBtn();
         }
-        appBarStep.checkNewsPageTitle();
+        appBarStep.checkNewsPageTitle(NEWS_PAGE_TITLE);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class AppBarTest extends DataGenerator {
     public void testNavigationNews() {
         appBarStep.clickNavigationBtn();
         appBarStep.clickNavigationNews();
-        appBarStep.checkNewsPageTitle();
+        appBarStep.checkNewsPageTitle(NEWS_PAGE_TITLE);
     }
 
     @Test

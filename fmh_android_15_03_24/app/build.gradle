@@ -20,6 +20,17 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", '"https://students.netoservices.ru/qamid-diplom-backend/"'
+        }
+        debug {
+            buildConfigField "String", "BASE_URL", '"https://students.netoservices.ru/qamid-diplom-backend/"'
+        }
+    }
+
     compileOptions {
         coreLibraryDesugaringEnabled true
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -46,6 +57,12 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
 
+    // Lifecycle
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+
+    // SwipeRefreshLayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
     // Hilt
     implementation "com.google.dagger:hilt-android:2.41"
     kapt "com.google.dagger:hilt-compiler:2.41"
@@ -54,6 +71,11 @@ dependencies {
     implementation "androidx.room:room-runtime:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
     implementation "androidx.room:room-ktx:2.4.2"
+
+    // Retrofit + OkHttp
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.3"
 
     // Desugaring
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")

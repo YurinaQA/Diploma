@@ -10,14 +10,14 @@ import org.junit.runner.RunWith;
 
 import io.qameta.allure.android.runners.AllureAndroidJUnit4;
 import io.qameta.allure.kotlin.Story;
+import ru.iteco.fmhandroid.R;
 import ru.iteco.fmhandroid.ui.AppActivity;
-import ru.iteco.fmhandroid.ui.data.DataGenerator;
 import ru.iteco.fmhandroid.ui.steps.AppBarStep;
 import ru.iteco.fmhandroid.ui.steps.AuthorizationStep;
 
 @LargeTest
 @RunWith(AllureAndroidJUnit4.class)
-public class AuthorizationTest extends DataGenerator {
+public class AuthorizationTest {
 
     private final AuthorizationStep authorizationStep = new AuthorizationStep();
     private final AppBarStep appBarStep = new AppBarStep();
@@ -29,12 +29,9 @@ public class AuthorizationTest extends DataGenerator {
     @Before
     public void ensureOnAuthorizationPage() {
         try {
-            // Проверяем открыта ли главная страница (значит, пользователь авторизован)
             appBarStep.checkNewsPageTitle("ALL NEWS");
-            // Если авторизован — разлогиниваем
             appBarStep.exit();
         } catch (Exception e) {
-            // Если не авторизован — уже на странице авторизации
             authorizationStep.checkAuthorizationPage();
         }
     }
@@ -42,8 +39,8 @@ public class AuthorizationTest extends DataGenerator {
     @Test
     @Story("Авторизация с валидными данными")
     public void userShouldAuthorizeWithValidCredentials() {
-        authorizationStep.loginFieldInput(validLogin);
-        authorizationStep.passwordFieldInput(validPassword);
+        authorizationStep.loginFieldInput("login2");
+        authorizationStep.passwordFieldInput("password2");
         authorizationStep.clickLoginBtn();
         appBarStep.checkNewsPageTitle("ALL NEWS");
     }
@@ -52,23 +49,23 @@ public class AuthorizationTest extends DataGenerator {
     @Story("Авторизация без ввода логина и пароля")
     public void shouldNotAuthorizeWithEmptyFields() {
         authorizationStep.clickLoginBtn();
-        authorizationStep.checkAuthorizationPage();
+        authorizationStep.checkErrorMessage(R.string.empty_login_or_password);
     }
 
     @Test
     @Story("Авторизация только с логином без пароля")
     public void shouldNotAuthorizeWithLoginOnly() {
-        authorizationStep.loginFieldInput(validLogin);
+        authorizationStep.loginFieldInput("login2");
         authorizationStep.clickLoginBtn();
-        authorizationStep.checkAuthorizationPage();
+        authorizationStep.checkErrorMessage(R.string.empty_login_or_password);
     }
 
     @Test
     @Story("Авторизация только с паролем без логина")
     public void shouldNotAuthorizeWithPasswordOnly() {
-        authorizationStep.passwordFieldInput(validPassword);
+        authorizationStep.passwordFieldInput("password2");
         authorizationStep.clickLoginBtn();
-        authorizationStep.checkAuthorizationPage();
+        authorizationStep.checkErrorMessage(R.string.empty_login_or_password);
     }
 
     @Test
@@ -77,6 +74,6 @@ public class AuthorizationTest extends DataGenerator {
         authorizationStep.loginFieldInput("wrongLogin");
         authorizationStep.passwordFieldInput("wrongPass123");
         authorizationStep.clickLoginBtn();
-        authorizationStep.checkAuthorizationPage();
+        authorizationStep.checkErrorMessage(R.string.wrong_login_or_password);
     }
 }
